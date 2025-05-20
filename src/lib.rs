@@ -12,6 +12,7 @@ pub struct UserInner {
 mod components;
 use components::login::Login;
 use components::chat::Chat;
+use components::about::About;
 
 use wasm_bindgen::prelude::*;
 use yew::functional::*;
@@ -32,6 +33,8 @@ pub enum Route {
     Login,
     #[at("/chat")]
     Chat,
+    #[at("/about")]
+    About,
     #[not_found]
     #[at("/404")]
     NotFound,
@@ -41,6 +44,7 @@ fn switch(selected_route: &Route) -> Html {
     match selected_route {
         Route::Login => html! {<Login />},
         Route::Chat => html! {<Chat/>},
+        Route::About => html! { <About /> },
         Route::NotFound => html! {<h1>{"404 baby"}</h1>},
     }
 }
@@ -65,7 +69,7 @@ fn main() -> Html {
     }
 }
 
-#[wasm_bindgen(start)]
+#[wasm_bindgen]
 pub fn run_app() -> Result<(), JsValue> {
     wasm_logger::init(wasm_logger::Config::default());
     yew::start_app::<Main>();
